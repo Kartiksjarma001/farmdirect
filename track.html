@@ -1,0 +1,15 @@
+<h2>📍 Truck Live Location</h2>
+
+{% if loc %}
+    <p>Latitude: {{ loc.latitude }}</p>
+    <p>Longitude: {{ loc.longitude }}</p>
+
+    <iframe
+        width="100%"
+        height="400"
+        src="https://maps.google.com/maps?q={{ loc.latitude }},{{ loc.longitude }}&z=15&output=embed">
+    </iframe>
+
+{% else %}
+    <p>🚫 No location available</p>
+{% endif %}

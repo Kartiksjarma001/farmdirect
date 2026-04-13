@@ -1,0 +1,12 @@
+<h2>📦 Orders</h2>
+
+{% for o in orders %}
+<div>
+    <p>{{ o.product }} - {{ o.user }}</p>
+    <p>Status: {{ o.status }}</p>
+
+    {% if o.status == "pending" %}
+        <a href="/accept_order/{{ o.id }}">✅ Accept</a>
+    {% endif %}
+</div>
+{% endfor %}

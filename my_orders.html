@@ -1,0 +1,19 @@
+<h2>📦 My Orders</h2>
+
+{% for o in orders %}
+<div style="border:1px solid black; padding:10px; margin:10px;">
+    
+    <p>Product: {{ o.product }}</p>
+    <p>Status: {{ o.status }}</p>
+
+    {% if o.truck_id %}
+    <p>delivery in{{o.eta}}</p>
+        <a href="/track/{{ o.truck_id }}" style="color:white; background:green; padding:5px;">
+            📍 Track Delivery
+        </a>
+    {% else %}
+        <p>⏳ Waiting for farmer to assign truck</p>
+    {% endif %}
+
+</div>
+{% endfor %}

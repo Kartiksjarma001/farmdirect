@@ -1,0 +1,22 @@
+<h2>🚚 Available Trucks</h2>
+
+{% for t in trucks %}
+<div style="border:1px solid black; padding:10px; margin:10px;">
+
+    <p>Driver: {{ t.driver_name }}</p>
+    <p>Route: {{ t.route_from }} → {{ t.route_to }}</p>
+    <p>Slots Left: {{ t.slots }}</p>
+
+    <!-- 🔽 Product Select -->
+    <form action="/book_truck/{{ t.id }}" method="POST">
+        <select name="product" class="form-control mb-2">
+            {% for p in products %}
+                <option value="{{ p.name }}">{{ p.name }}</option>
+            {% endfor %}
+        </select>
+
+        <button class="btn btn-success">📦 Book Slot</button>
+    </form>
+
+</div>
+{% endfor %}
