@@ -22,14 +22,29 @@
     <hr>
 
     <!-- 🔐 Navbar -->
-     
-    <div class="d-flex justify-content-between align-items-center">
-        
-        <div>
+    <div class="d-flex justify-content-between align-items-center flex-wrap">
+
+        <div class="mb-2">
             <a href="/" class="btn btn-outline-dark btn-sm">Home</a>
             <a href="/cart" class="btn btn-warning btn-sm">🛒 Cart</a>
             <a href="/inbox" class="btn btn-info btn-sm">💬 Inbox</a>
+            <a href="/my_orders" class="btn btn-primary btn-sm">📦 My Orders</a>
+            <a href="/delivery" class="btn btn-dark btn-sm">🚚 Delivery</a>
+            
+            
+            {% if role == "farmer" %}
+<a href="/farmer_orders" class="btn btn-dark btn-sm">📦 Orders</a>
+
+    💬 Contact Farmer
+</a>
+{% endif %}
         </div>
+
+        <!-- 🔍 Search by Location -->
+        <form method="GET" action="/" class="d-flex mb-2">
+            <input type="text" name="location" class="form-control me-2" placeholder="Enter city (e.g. Meerut)">
+            <button class="btn btn-success">Search</button>
+        </form>
 
         <div>
             {% if user %}
@@ -39,6 +54,8 @@
                 <a href="/login" class="btn btn-primary btn-sm">Login</a>
                 <a href="/register" class="btn btn-success btn-sm">Register</a>
             {% endif %}
+           
+
         </div>
 
     </div>
@@ -73,12 +90,15 @@
                         <p class="card-text">Price: ₹{{ p.price }}</p>
                         <p class="card-text text-muted">Farmer: {{ p.farmer }}</p>
 
+                        <!-- 📍 Location -->
+                        <p class="text-muted">📍 Location: {{ p.location }}</p>
+
                         <!-- ⭐ Rating -->
                         <p>⭐ Rating: {{ ratings.get(p.farmer, "No rating") }}</p>
 
                         <!-- ⭐ Rate -->
                         {% if user and role == "buyer" %}
-                        <form action="/rate/{{ p.farmer }}" method="POST">
+                        <form action="/rate/{{ p.farmer }}" method="post">
                             <select name="stars" class="form-select mb-2">
                                 <option value="5">⭐⭐⭐⭐⭐</option>
                                 <option value="4">⭐⭐⭐⭐</option>
@@ -95,14 +115,29 @@
                             <a href="/add_to_cart/{{ p.id }}" class="btn btn-primary w-100 mt-2">
                                 🛒 Add to Cart
                             </a>
+
+                            <br>
+
+                            
+                            <a href="/product/{{ loop.index }}" class="btn btn-primary">View Details</a>
+
+                        </br>
+                            
+                            </div>
+
+
+                            <!-- 💬 Chat -->
+                            <a href="/chat/{{ p.farmer }}" class="btn btn-outline-dark w-100 mt-2">
+                                 
+                            </a>
+                            
                         {% endif %}
 
-                        <!-- 💬 CHAT BUTTON (FIXED) -->
-                        {% if role == "buyer" %}
-                            <a href="/chat/{{ p.farmer }}" class="btn btn-outline-dark w-100 mt-2">
-                                💬 Chat with Farmer
-                            </a>
-                        {% endif %}
+                         {% if role == "farmer" %}
+<a href="/delivery" class="btn btn-dark mt-2 w-100">🚚 Delivery</a>
+<a href="/add_truck" class="btn btn-success mt-2 w-100">➕ Add Truck</a>
+<a href="/my_bookings" class="btn btn-info mt-2 w-100">📦 My Bookings</a>
+{% endif %}
 
                     </div>
 
